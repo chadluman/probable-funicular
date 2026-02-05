@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log In</title>
+  <!--Back to Home-->
+  <p class="xsmall"><a href="../App/index2.html">← Back to Home</a></p>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="auth-wrap">
+    <section class="card" aria-labelledby="login-title">
+      <div class="header">
+        <div class="logo" aria-hidden="true">EA</div>
+        <div class="title">
+          <h1 id="login-title">Welcome back</h1>
+          <p>Log in to access your dashboard</p>
+        </div>
+      </div>
+
+      <form class="form" action="/login" method="post" novalidate>
+        <div>
+          <label class="label" for="email">Email</label>
+          <input class="input" id="email" name="email" type="email"
+                 placeholder="you@example.com" autocomplete="username" required />
+        </div>
+
+        <div>
+          <label class="label" for="password">Password</label>
+          <input class="input" id="password" name="password" type="password"
+                 placeholder="••••••••" autocomplete="current-password"
+                 minlength="8" required />
+          <p class="hint xsmall">Use at least 8 characters.</p>
+        </div>
+
+        <div class="right">
+          <a class="xsmall" href="./forgot-password.html">Forgot password?</a>
+        </div>
+
+        <div>
+          <label class="label" for="requestedRole">Role</label>
+          <select class="input" id="requestedRole" name="requestedRole">
+            <option value="user" selected>User</option>
+<option value="admin">Sys Admin</option>
+          </select>
+          <p class="hint xsmall">Admin role requires a token.</p>
+        </div>
+
+        <div id="tokenWrap" hidden>
+          <label class="label" for="adminToken">Admin Token</label>
+          <input class="input" id="adminToken" name="adminToken" type="password" placeholder="Enter admin token" />
+        </div>
+
+        <button class="btn" type="submit">Log In</button>
+
+        <div class="divider"></div>
+
+        <p class="alt">New here? <a href="register.html">Create an account</a></p>
+      </form>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="./mockDb.js"></script>
+   <script type="module" src="./auth.js"></script>
+<script type="module" src="./mockDb.js"></script>
+<script type="module" src="./auth.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("adminRequired") === "1") {
+    const roleSel = document.getElementById("requestedRole");
+    if (roleSel) roleSel.value = "admin";
+    const tokenWrap = document.getElementById("tokenWrap");
+    if (tokenWrap) tokenWrap.hidden = false;
+  }
+</script>
+</body>
+
+</html>

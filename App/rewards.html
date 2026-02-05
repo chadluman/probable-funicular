@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rewards</title>
+  <link rel="stylesheet" href="./style2.css" />
+</head>
+<body class="store-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index2.html">
+        <span class="logo-frame tier-bronze" data-rewards-logo>
+          <img src="images/logo.svg" alt="Brand logo" class="brand__logo" />
+        </span>
+        <span class="brand__name">ILLUMINATION SERVICES</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a href="./index2.html" class="nav__link">Home</a></li>
+          <li><a href="./store.html" class="nav__link">Store</a></li>
+          <li><a href="./cart.html" class="nav__link">Cart</a></li>
+          <li><a href="./rewards.html" class="nav__link">Rewards</a></li>
+          <li><a href="./history.html" class="nav__link">History</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <header class="section__header" style="text-align:left">
+        <h2>Rewards Summary</h2>
+        <p>Rolling 30 days. Points stay pending until transactions clear (checked every 24 hours).</p>
+      </header>
+
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="label">Tier (Cleared)</div>
+          <div class="value" id="tierValue">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Rolling 30D Spend (Cleared)</div>
+          <div class="value" id="clearedSpend">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Rolling 30D Spend (Pending)</div>
+          <div class="value" id="pendingSpend">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Available Points</div>
+          <div class="value" id="availablePoints">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Pending Points</div>
+          <div class="value" id="pendingPoints">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Projected Tier (If Pending Clears)</div>
+          <div class="value" id="projectedTier">—</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3>Tier Rules</h3>
+        <p class="xsmall" style="margin-top:8px">
+          Bronze: $0 – $999.99 (1 point per $10) • Silver: $1000 – $2999.99 (2 points per $10) • Gold: $3000+ (3 points per $10).
+          Points are calculated from total rolling spend rounded <strong>up</strong> to the nearest $10.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> ILLUMINATION SERVICES</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script type="module" src="./js/rewards-page.js"></script>
+
+  <script type="module" src="./js/cart-modal.js"></script>
+  <script src="./session-ui.js"></script>
+
+</body>
+
+</html>

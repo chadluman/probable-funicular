@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Starter Homepage Template</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Link your stylesheet -->
+  <link rel="stylesheet" href="style2.css" />
+  <style>
+    :root {
+      --bg-color: #f8fbff;
+      --grid-color: 173, 216, 230;
+      --content-bg: #ffffff;
+      --text-color: #333333;
+      --heading-color: #2c2c2c;
+      --btn-primary-gradient-start: #4a90e2;
+      --btn-primary-gradient-end: #357abd;
+      --btn-text-color: #ffffff;
+      --btn-border-color: #4a90e2;
+      --nav-link-color: #444444;
+      --nav-bg: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --grid-color: 45, 45, 45;
+      --content-bg: #252526;
+      --text-color: #d4d4d4;
+      --heading-color: #ffffff;
+      --btn-primary-gradient-start: #0e639c;
+      --btn-primary-gradient-end: #1177bb;
+      --btn-text-color: #ffffff;
+      --btn-border-color: #0e639c;
+      --nav-link-color: #d4d4d4;
+      --nav-bg: rgba(30, 30, 30, 0.95);
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background-image: 
+        linear-gradient(0deg, rgba(var(--grid-color), 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--grid-color), 0.1) 1px, transparent 1px),
+        linear-gradient(rgba(var(--grid-color), 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--grid-color), 0.05) 1px, transparent 1px);
+      background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+      background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+      background-attachment: fixed;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+
+    /* VS Code-like section styling */
+    section {
+      background-color: var(--content-bg);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--heading-color);
+    }
+
+    /* Navigation styling */
+    .site-header {
+      background-color: var(--nav-bg);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav__link {
+      color: var(--nav-link-color) !important;
+      transition: color 0.3s ease;
+    }
+
+    .nav__link:hover {
+      color: var(--btn-primary-gradient-start) !important;
+    }
+
+    /* Content areas */
+    .container {
+      background-color: var(--content-bg);
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Features section styling */
+    #features {
+      background-color: var(--content-bg);
+      border: 1px solid rgba(var(--grid-color), 0.2);
+      margin: 2rem 0;
+    }
+
+    .section {
+      padding: 3rem 0;
+    }
+
+    /* Feature cards */
+    .feature-card {
+      background-color: rgba(var(--grid-color), 0.05);
+      border: 1px solid rgba(var(--grid-color), 0.1);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: var(--btn-primary-gradient-start);
+    }
+
+    .feature-card h3 {
+      color: var(--heading-color);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+      color: var(--text-color);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    /* Feature icons/images */
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1rem;
+      filter: brightness(var(--icon-brightness, 1));
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .feature-icon {
+      --icon-brightness: 0.9;
+    }
+
+    /* Feature grid layout */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    /* Theme Toggle Switch */
+    .theme-switch-wrapper {
+      position: fixed;
+      top: auto;
+      left: 20px;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .theme-switch {
+      display: inline-block;
+      height: 34px;
+      position: relative;
+      width: 60px;
+    }
+
+    .theme-switch input {
+      display: none;
+    }
+
+    .slider {
+      background-color: #ccc;
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      background-color: #fff;
+      bottom: 4px;
+      content: "";
+      height: 26px;
+      left: 4px;
+      position: absolute;
+      transition: .4s;
+      width: 26px;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #66bb6a;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .btn--primary,
+    .btn--outline {
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .btn--primary {
+      background: linear-gradient(180deg, var(--btn-primary-gradient-start) 0%, var(--btn-primary-gradient-end) 100%);
+      color: var(--btn-text-color);
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--btn-primary-gradient-start);
+      border: 1px solid var(--btn-border-color);
+      box-shadow: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn--outline:hover {
+      background: rgba(var(--grid-color), 0.1);
+      border-color: var(--btn-primary-gradient-start);
+    }
+
+    .btn--primary:hover,
+    .btn--outline:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    }
+
+    .btn--primary:active {
+      background: linear-gradient(180deg, #357abd 0%, #2d669e 100%);
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(74, 144, 226, 0.2);
+    }
+
+    .btn--outline:active {
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(74, 144, 226, 0.1);
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Layout: Site Header / Navigation ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      
+      <a class="brand" href="#">
+        <span class="logo-frame tier-bronze" data-rewards-logo>
+          <img src="images/logo.svg" alt="Brand logo" class="brand__logo" />
+        </span>
+        <span class="brand__name">ILLUMINATION SERVICES</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav__toggle" aria-expanded="false" aria-controls="navMenu">☰</button>
+        <ul id="navMenu" class="nav__list">
+          <li><a href="#features" class="nav__link">Features</a></li>
+          <li><a href="#about" class="nav__link">About</a></li>
+          <li><a href="#testimonials" class="nav__link">Testimonials</a></li>
+          <li><a href="#faq" class="nav__link">FAQ</a></li>
+          <li><a href="./store.html" class="btn btn--sm btn--primary">Explore Store</a></li>
+          <li><a href="./rewards.html" class="nav__link">Rewards</a></li>
+          <li><a href="./history.html" class="nav__link">History</a></li>
+          <li><a href="./cart.html" id="cart-badge" class="btn btn--sm btn--outline" aria-live="polite">Cart (0)</a></li>
+          <li><a href="../Auth/register.html" class="nav__link" id="registerLink">Register</a></li>
+          <li><a href="../Auth/login.html" class="nav__link" id="accountLink" data-logged-out-text="Login">Login</a></li>
+          <li><a href="#contact" class="btn btn--sm btn--primary">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Theme Switch -->
+  <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="checkbox">
+      <input type="checkbox" id="checkbox" />
+      <div class="slider"></div>
+    </label>
+  </div>
+
+  <!-- ===== Ribbon (corner) ===== -->
+  <a href="#cta" class="ribbon ribbon--top-right">New</a>
+
+  <script>
+    const toggleSwitch = document.querySelector('#checkbox');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+      }
+    }
+
+    function switchTheme(e) {
+      if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    toggleSwitch.addEventListener('change', switchTheme);
+  </script>
+
+  <!-- ===== Hero / Masthead ===== -->
+  <section class="hero">
+    <div class="container hero__content">
+      <h1>Build modern websites faster</h1>
+      <p>Create beautiful, responsive pages with clean HTML & CSS.</p>
+      <div class="hero__actions">
+        <a href="#features" class="btn btn--primary">Explore Features</a>
+        <a href="./store.html" class="btn btn--primary">Explore Store</a>
+        <a href="#about" class="btn btn--outline">Learn More</a>
+      </div>
+    </div>
+    <!-- Optional background image overlay handled in CSS -->
+  </section>
+
+  <!-- ===== Featured Products Carousel ===== -->
+  <section class="section" id="featured">
+    <div class="container">
+      <header class="section__header">
+        <h2>Featured Products</h2>
+        <p>Browse a rotating selection from the store</p>
+      </header>
+
+      <div id="productCarousel" class="carousel">
+        <button class="carousel__nav prev" aria-label="Previous slide">‹</button>
+
+        <div class="carousel__viewport">
+          <a id="carouselLink" href="./store.html" class="carousel__slide">
+            <img id="carouselImg" src="" alt="" class="carousel__img" />
+            <div class="carousel__meta">
+              <h3 id="carouselTitle"></h3>
+              <p id="carouselPrice" class="price"></p>
+            </div>
+          </a>
+        </div>
+
+        <button class="carousel__nav next" aria-label="Next slide">›</button>
+      </div>
+
+      <div id="carouselDots" class="carousel__dots"></div>
+    </div>
+  </section>
+
+  <!-- ===== Key Highlights (3-column layout) ===== -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="text-center mb-5">Key Features</h2>
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230e639c'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E" 
+               alt="Layers icon" 
+               class="feature-icon">
+          <h3>Responsive Design</h3>
+          <p>Build modern, responsive layouts that work seamlessly across all devices and screen sizes.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230e639c'%3E%3Cpath d='M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.5 2.54l2.54 1.46c.56-1.24.88-2.62.88-4C21.92 6.81 18.05 2.89 13 2.05M12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05C5.94 2.89 2.08 6.81 2.08 12c0 5.52 4.47 10 9.92 10 3.71 0 6.93-2.02 8.66-5l-2.54-1.46C16.89 17.64 14.62 19 12 19Z'/%3E%3C/svg%3E"
+               alt="Refresh icon" 
+               class="feature-icon">
+          <h3>Dark Mode Support</h3>
+          <p>Seamlessly switch between light and dark themes with our VS Code-inspired color schemes.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230e639c'%3E%3Cpath d='M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5M7 7H3v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3H3v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5m-1 8h12v2H6v-2Z'/%3E%3C/svg%3E"
+               alt="Connect icon" 
+               class="feature-icon">
+          <h3>Modern Components</h3>
+          <p>Utilize our collection of modern UI components designed for optimal user experience.</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <header class="section__header">
+        <h2>Features</h2>
+        <p>Everything you need to get started quickly.</p>
+      </header>
+
+      <div class="grid grid--3">
+        <article class="card">
+          <div class="card__icon" aria-hidden="true">⚡</div>
+          <h3 class="card__title">Fast</h3>
+          <p>Lightweight template with no dependencies.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon" aria-hidden="true">🔧</div>
+          <h3 class="card__title">Customizable</h3>
+          <p>Use CSS variables to adjust colors, spacing, and radius.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon" aria-hidden="true">📱</div>
+          <h3 class="card__title">Responsive</h3>
+          <p>Grid & flex layouts adapt to any screen size.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Content / About (two-column) ===== -->
+  <section id="about" class="section section--alt">
+    <div class="container">
+      <div class="about-stats-row">
+        <div id="about-stats-slot"></div>
+        <div class="media" role="img" aria-label="Illustrative image area" src="images/hero.png"></div>
+      </div>
+
+      <div class="about-content">
+        <h2>About This Template</h2>
+        <p class="p2">
+          A semantic, accessible starting point for a homepage. Edit text and
+          swap images to make it yours.
+        </p>
+        <ul class="checklist">
+          <li>Semantic HTML5 sections</li>
+          <li>Modular components (cards, buttons, ribbon)</li>
+          <li>Easy theming via CSS variables</li>
+        </ul>
+        <a id="cta" href="#contact" class="btn btn--accent">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials (carousel-ready grid) ===== -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <header class="section__header">
+        <h2>What People Say</h2>
+      </header>
+      <div class="grid grid--3">
+        <blockquote class="quote">
+          <p>“Clean structure and great defaults.”</p>
+          <footer>— Alex G.</footer>
+        </blockquote>
+        <blockquote class="quote">
+          <p>“Perfect starting point for any site.”</p>
+          <footer>— Sam R.</footer>
+        </blockquote>
+        <blockquote class="quote">
+          <p>“The ribbon and buttons are 🔥.”</p>
+          <footer>— Taylor W.</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ (details/summary) ===== -->
+  <section id="faq" class="section section--alt">
+    <div class="container narrow">
+      <header class="section__header">
+        <h2>Frequently Asked Questions</h2>
+      </header>
+      
+      <details class="faq">
+        <summary>Can I use this commercially?</summary>
+        <p>Yes. Replace content and customize styles as needed.</p>
+      </details>
+      <details class="faq">
+        <summary>Is JavaScript required?</summary>
+        <p>No. The basics work with pure HTML/CSS; add JS if you want.</p>
+      </details>
+      <details class="faq">
+        <summary>How do I change colors?</summary>
+        <p>Edit the CSS variables in <code>:root</code> inside <code>style.css</code>.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== Contact / Simple form ===== -->
+  <section id="contact" class="section">
+    <div class="container narrow">
+      <header class="section__header">
+        <h2>Contact Us</h2>
+      </header>
+
+      <form class="form" action="#" method="post">
+        <div class="form__row">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required />
+        </div>
+        <div class="form__row">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="form__row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5"></textarea>
+        </div>
+        <button class="btn btn--primary" type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>ILLUMINATION SERVICES</h3>
+        <p>© <span id="year"></span> ILLUMINATION SERVICES, Inc. All rights reserved.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-nav">
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <div class="social">
+        <a class="btn btn--sm btn--outline" href="#">Twitter</a>
+        <a class="btn btn--sm btn--outline" href="#">LinkedIn</a>
+        <a class="btn btn--sm btn--outline" href="#">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- (Optional) tiny script for current year & mobile menu -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const toggle = document.querySelector('.nav__toggle');
+    const menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      menu.classList.toggle('is-open');
+    });
+  </script>
+<!-- Rewards: apply tier border to logo -->
+<script type="module" src="./js/home.js"></script>
+
+<!-- Homepage widgets + carousel -->
+<script type="module" src="./js/home-widgets.js"></script>
+<script type="module" src="./js/home-carousel.js"></script>
+
+<script type="module" src="./js/cart-modal.js"></script>
+<script src="./session-ui.js"></script>
+
+</body>
+
+</html>

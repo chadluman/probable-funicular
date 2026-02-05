@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account</title>
+  <link rel="stylesheet" href="./style2.css" />
+  <style>
+    .wrap{max-width:900px;margin:0 auto;padding:18px}
+    .top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+
+    body{ background: var(--color-bg); color: var(--color-text); }
+
+    .card{
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding:16px;
+      box-shadow: var(--shadow);
+      margin-top:12px
+    }
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .row > div{flex:1;min-width:240px}
+    label{display:block;font-size:13px;color:var(--color-text-dim);margin-bottom:6px}
+
+    input,button{
+      width:100%;
+      padding:10px 12px;
+      border-radius: var(--radius-sm);
+      border:1px solid var(--color-border);
+      font:inherit;
+      background: var(--color-surface-alt);
+      color: var(--color-text);
+    }
+    input:disabled{ opacity:.7; cursor:not-allowed; }
+    button{
+      border:0;
+      background: var(--primary);
+      color:#fff;
+      cursor:pointer
+    }
+    button:hover{ background: var(--primary-600); }
+    button.secondary{
+      background: transparent;
+      color: var(--color-text);
+      border:1px solid var(--color-border)
+    }
+    button.secondary:hover{ background: rgba(255,255,255,.06); }
+
+    .muted{color:var(--color-text-dim);font-size:13px}
+    ul{padding-left:18px;margin:8px 0}
+    /* pill removed (using global btn styles) */
+    .pill{
+      padding:6px 10px;border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--color-border);
+      font-size:13px;text-decoration:none;color:inherit
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1 style="margin:0;">My Account</h1>
+        <div class="muted">View and update your profile. Updates require your password.</div>
+      </div>
+      <div class="row" style="flex:0 0 auto;min-width:320px;">
+        <a href="./index2.html" class="btn btn--sm btn--outline">Home</a>
+        <button id="logoutBtn" class="btn btn--sm btn--outline" type="button">Logout</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 10px 0;">Profile</h2>
+      <div class="row">
+        <div>
+          <label for="firstName">First name</label>
+          <input id="firstName" />
+        </div>
+        <div>
+          <label for="lastName">Last name</label>
+          <input id="lastName" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" disabled />
+        </div>
+        <div>
+          <label for="age">Age</label>
+          <input id="age" type="number" min="0" />
+        </div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <label for="address">Address</label>
+        <input id="address" placeholder="Street, City, State, ZIP" />
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="city">City</label>
+          <input id="city" placeholder="City" />
+        </div>
+        <div>
+          <label for="state">State / Province</label>
+          <input id="state" placeholder="State / Province" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="country">Country</label>
+          <input id="country" placeholder="US, CA, MX..." />
+        </div>
+        <div>
+          <label for="postalCode">Postal / ZIP</label>
+          <input id="postalCode" placeholder="ZIP / Postal code" />
+        </div>
+      </div>
+
+
+      <div style="margin-top:12px;">
+        <label for="confirmPw">Password (required to save)</label>
+        <input id="confirmPw" type="password" placeholder="Re-enter your password" />
+        <div class="muted" style="margin-top:6px;">We ask every time because humans keep losing accounts.</div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <button id="saveBtn">Save Changes</button>
+        <button id="cancelBtn" class="secondary" type="button">Cancel</button>
+      </div>
+
+      <div id="msg" class="muted" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 10px 0;">Saved Payment Methods</h2>
+      <ul id="paymentList"></ul>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="pmName">Name on card</label>
+          <input id="pmName" placeholder="Jane Q. Customer" autocomplete="cc-name" />
+        </div>
+        <div>
+          <label for="pmNumber">Card number</label>
+          <input id="pmNumber" inputmode="numeric" placeholder="1234 5678 9012 3456" autocomplete="cc-number" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="pmExpMonth">Exp month</label>
+          <input id="pmExpMonth" inputmode="numeric" placeholder="MM" maxlength="2" autocomplete="cc-exp-month" />
+        </div>
+        <div>
+          <label for="pmExpYear">Exp year</label>
+          <input id="pmExpYear" inputmode="numeric" placeholder="YYYY" maxlength="4" autocomplete="cc-exp-year" />
+        </div>
+        <div>
+          <label for="pmCvv">CVV</label>
+          <input id="pmCvv" inputmode="numeric" placeholder="123" maxlength="4" autocomplete="cc-csc" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label for="pmBillingZip">Billing ZIP / Postal</label>
+          <input id="pmBillingZip" placeholder="ZIP / Postal" autocomplete="postal-code" />
+        </div>
+        <div>
+          <label for="pmBrand">Brand (auto)</label>
+          <input id="pmBrand" placeholder="VISA" disabled />
+        </div>
+        <div>
+          <label for="pmLast4">Last 4 (auto)</label>
+          <input id="pmLast4" maxlength="4" placeholder="4242" disabled />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <button id="addPmBtn" type="button">Save Card</button>
+        <button id="clearPmBtn" class="secondary" type="button">Clear All</button>
+      </div>
+      <div class="muted" style="margin-top:10px;">Demo behavior: your full card number/CVV are NOT saved. We store only brand, last4, exp, name, billing ZIP, and a fake token.</div>
+    </div>
+
+    <footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year"></span> ILLUMINATION SERVICES</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script type="module" src="./account.js"></script>
+<script type="module" src="./js/cart-modal.js"></script>
+<script src="./session-ui.js"></script>
+</body>
+</html>

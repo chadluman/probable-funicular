@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Account</title>
+  <!-- Back to Home-->
+  <p class="xsmall"><a href="../App/index2.html">← Back to Home</a></p>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="auth-wrap">
+    <section class="card" aria-labelledby="register-title">
+      <div class="header">
+        <div class="logo" aria-hidden="true">EA</div>
+        <div class="title">
+          <h1 id="register-title">Create your account</h1>
+          <p>Start your journey in minutes</p>
+        </div>
+      </div>
+
+      <form class="form" action="/register" method="post" novalidate>
+        <div class="row two">
+          <div>
+            <label class="label" for="firstName">First name</label>
+            <input class="input" id="firstName" name="firstName" type="text"
+                   placeholder="Jane" autocomplete="given-name" required />
+          </div>
+          <div>
+            <label class="label" for="lastName">Last name</label>
+            <input class="input" id="lastName" name="lastName" type="text"
+                   placeholder="Doe" autocomplete="family-name" required />
+          </div>
+        </div>
+
+        <div>
+          <label class="label" for="email">Email</label>
+          <input class="input" id="email" name="email" type="email"
+                 placeholder="you@example.com" autocomplete="email" required />
+        </div>
+
+        <div>
+          <label class="label" for="password">Password</label>
+          <input class="input" id="password" name="password" type="password"
+                 placeholder="At least 8 characters"
+                 minlength="8" autocomplete="new-password" required />
+          <p class="hint xsmall">Use 8+ characters. Mix letters & numbers for better security.</p>
+        </div>
+
+        <div>
+          <label class="label" for="confirm">Confirm password</label>
+          <input class="input" id="confirm" name="confirm" type="password"
+                 placeholder="Re-enter your password" minlength="8" required />
+          <p class="hint xsmall">Make sure this matches the password above.</p>
+        </div>
+
+        <label class="remember">
+          <input class="checkbox" type="checkbox" name="terms" required />
+          I agree to the <a href="#" class="xsmall" style="margin-left:6px;">Terms</a>
+        </label>
+
+        <button class="btn" type="submit">Create Account</button>
+
+        <div class="divider"></div>
+
+        <p class="alt">Already have an account? <a href="login.html">Log in</a></p>
+      </form>
+    </section>
+  </main>
+ <script type="module" src="./mockDb.js"></script>
+   <script type="module" src="./auth.js"></script>
+<script type="module" src="./mockDb.js"></script>
+<script type="module" src="./auth.js"></script>
+</body>
+</html>

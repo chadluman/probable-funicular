@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Store</title>
+  <link rel="stylesheet" href="./style2.css" />
+</head>
+<body class="store-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index2.html">
+        <span class="logo-frame tier-bronze" data-rewards-logo>
+          <img src="images/logo.svg" alt="Brand logo" class="brand__logo" />
+        </span>
+        <span class="brand__name">ILLUMINATION SERVICES</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a href="./index2.html" class="nav__link">Home</a></li>
+          <li><a href="./store.html" class="nav__link">Store</a></li>
+          <li><a href="./rewards.html" class="nav__link">Rewards</a></li>
+          <li><a href="./history.html" class="nav__link">History</a></li>
+          <li><a href="../Auth/login.html" class="btn btn--sm btn--primary" id="accountLink" data-logged-out-text="Log In">Log In</a></li>
+          <li><a href="./cart.html" id="cart-badge" class="btn btn--sm btn--outline" aria-live="polite">Cart (0)</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container grid grid--2">
+      <!-- Left: products -->
+      <section>
+        <header class="section__header" style="text-align:left">
+          <h2>Products</h2>
+          <p>Hand-picked items</p>
+        </header>
+
+        <div id="filter-bar" class="form" style="margin-bottom:12px">
+          <select id="categoryFilter">
+            <option value="all">All</option>
+            <option value="Dress">Dress</option>
+            <option value="Sport">Sport</option>
+          </select>
+          <button id="applyFilter" class="btn btn--outline btn--sm" type="button">Filter</button>
+        </div>
+
+        <div id="store-grid" class="grid grid--3"></div>
+      </section>
+
+      <!-- Right: utilities -->
+      <aside>
+        <div class="card" id="shipping-card">
+          <h3>Shipping Calculator</h3>
+          <div class="muted xsmall" style="margin-top:6px">
+            Estimates only (because this is a frontend demo, not FedEx).
+          </div>
+
+          <div class="form" style="margin-top:10px">
+            <div class="row row--tight" style="align-items:flex-end; flex-wrap:wrap;">
+              <div style="flex:1; min-width:160px;">
+                <label class="muted xsmall" for="shipCountry">Country</label>
+                <select id="shipCountry">
+                  <option value="">Select…</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="MX">Mexico</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+              <div style="flex:1; min-width:160px;">
+                <label class="muted xsmall" for="shipState">State / Province</label>
+                <input id="shipState" type="text" placeholder="e.g., TX" maxlength="30" />
+              </div>
+              <div style="flex:1; min-width:200px;">
+                <label class="muted xsmall" for="shipCity">City</label>
+                <input id="shipCity" type="text" placeholder="e.g., El Paso" maxlength="60" />
+              </div>
+            </div>
+
+            <div class="row row--tight" style="margin-top:10px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:160px;">
+                <label class="muted xsmall">Cart qty</label>
+                <input id="shipCartQty" type="number" disabled />
+              </div>
+              <div style="flex:1; min-width:160px;">
+                <label class="muted xsmall">Cart value</label>
+                <input id="shipCartValue" type="text" disabled />
+              </div>
+              <div style="flex:1; min-width:220px;">
+                <label class="muted xsmall" for="shipPointsUse">Use reward points</label>
+                <input id="shipPointsUse" type="number" min="0" step="1" placeholder="0" />
+                <div class="muted xsmall" id="shipPointsHint" style="margin-top:4px;"></div>
+              </div>
+            </div>
+
+            <button id="calcShipBtn" class="btn btn--primary btn--sm" type="button" style="margin-top:10px">
+              Calculate
+            </button>
+
+            <button id="shipCheckoutBtn" class="btn btn--accent btn--sm" type="button" style="margin-top:8px; width:100%">
+              Checkout
+            </button>
+
+            <p id="shippingResult" class="xsmall" style="margin-top:10px"></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> ILLUMINATION SERVICES</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script type="module" src="./js/rewards-system.js"></script>
+  <script type="module" src="./js/cart.js"></script>
+  <script type="module" src="./js/store.js"></script>
+
+  <script type="module" src="./js/cart-modal.js"></script>
+  <script src="./session-ui.js"></script>
+
+</body>
+
+</html>

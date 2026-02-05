@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="I.S.">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7ec8ff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#b4ffb8" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="52" fill="rgba(15,21,34,0.85)" stroke="url(#g)" stroke-width="6"/>
+  <text x="60" y="68" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="38" font-weight="800" fill="url(#g)">I.S.</text>
+</svg>

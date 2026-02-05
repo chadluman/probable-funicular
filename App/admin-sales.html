@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>Sales Dashboard</title>
+ <link rel="stylesheet" href="./style2.css"/>
+ <link rel="stylesheet" href="./admin-ui.css"/>
+</head>
+<body>
+ <div class="admin-wrap">
+  <div class="admin-top">
+   <div>
+    <h1>Sales Dashboard</h1>
+    <div class="muted">Revenue, refunds, pending vs cleared, and rewards exposure.</div>
+   </div>
+   <div class="admin-actions">
+    <span id="rolePill" class="pill">Role: ?</span>
+    <a class="pill" href="./index2.html">Home</a>
+    <a class="pill" href="./admin-dashboard.html">Users</a>
+    <button id="logoutBtn" class="btn secondary">Logout</button>
+   </div>
+  </div>
+
+  <div class="card admin-card" style="margin-top:12px;">
+   <div class="row">
+    <select id="rangePreset">
+     <option value="today">Today</option>
+     <option value="7d">Last 7 days</option>
+     <option value="30d" selected>Last 30 days</option>
+     <option value="custom">Custom</option>
+    </select>
+    <input id="startDate" type="date"/>
+    <input id="endDate" type="date"/>
+    <select id="statusFilter">
+     <option value="all" selected>All statuses</option>
+     <option value="PENDING">Pending</option>
+     <option value="CLEARED">Cleared</option>
+     <option value="REFUNDED">Refunded</option>
+     <option value="FAILED">Failed</option>
+    </select>
+    <input id="userQuery" placeholder="Filter by email/name..." />
+    <button id="applyFilters" class="btn">Apply</button>
+   </div>
+   <div class="muted" style="margin-top:8px;">Tip: Pending should mean the payment hasn’t cleared settlement yet.</div>
+  </div>
+
+  <div class="grid">
+   <div class="card admin-card"><div class="kpi-label">Gross Sales</div><div id="kpiGross" class="kpi-val">$0.00</div></div>
+   <div class="card admin-card"><div class="kpi-label">Net Sales</div><div id="kpiNet" class="kpi-val">$0.00</div></div>
+   <div class="card admin-card"><div class="kpi-label">Orders</div><div id="kpiOrders" class="kpi-val">0</div></div>
+   <div class="card admin-card"><div class="kpi-label">Avg Order Value</div><div id="kpiAov" class="kpi-val">$0.00</div></div>
+
+   <div class="card admin-card"><div class="kpi-label">Refund Total</div><div id="kpiRefund" class="kpi-val">$0.00</div></div>
+   <div class="card admin-card"><div class="kpi-label">Pending Revenue</div><div id="kpiPending" class="kpi-val">$0.00</div></div>
+   <div class="card admin-card"><div class="kpi-label">Points Issued</div><div id="kpiPtsIssued" class="kpi-val">0</div></div>
+   <div class="card admin-card"><div class="kpi-label">Points Redeemed</div><div id="kpiPtsRedeemed" class="kpi-val">0</div></div>
+  </div>
+
+  <div class="card admin-card" style="margin-top:12px;">
+   <h2 style="margin:0 0 10px 0;font-size:18px;">Transactions</h2>
+   <table>
+    <thead>
+     <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Order</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Points</th>
+      <th>Payment</th>
+     </tr>
+    </thead>
+    <tbody id="txBody"></tbody>
+   </table>
+  </div>
+
+  <div class="card admin-card" style="margin-top:12px;">
+   <h2 style="margin:0 0 10px 0;font-size:18px;">Top Customers (Rolling 30 Days)</h2>
+   <table>
+    <thead>
+     <tr><th>User</th><th>Spend</th><th>Orders</th><th>Tier</th></tr>
+    </thead>
+    <tbody id="topCustomers"></tbody>
+   </table>
+  </div>
+ </div>
+
+ <script src="./admin-sales.js"></script>
+ <script src="./session-ui.js"></script>
+</body>
+</html>

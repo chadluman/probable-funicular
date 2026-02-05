@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>History</title>
+  <link rel="stylesheet" href="./style2.css" />
+</head>
+<body class="store-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index2.html">
+        <span class="logo-frame tier-bronze" data-rewards-logo>
+          <img src="images/logo.svg" alt="Brand logo" class="brand__logo" />
+        </span>
+        <span class="brand__name">ILLUMINATION SERVICES</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a href="./index2.html" class="nav__link">Home</a></li>
+          <li><a href="./store.html" class="nav__link">Store</a></li>
+          <li><a href="./cart.html" class="nav__link">Cart</a></li>
+          <li><a href="./rewards.html" class="nav__link">Rewards</a></li>
+          <li><a href="./history.html" class="nav__link">History</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <header class="section__header" style="text-align:left">
+        <h2>Purchase & Points History</h2>
+        <p>Defaults to all activity. Filter by month or by purchase instance.</p>
+      </header>
+
+      <div class="card">
+        <div class="filters">
+          <label>
+            <span>Filter by month</span>
+            <input type="month" id="monthFilter" />
+          </label>
+          <label>
+            <span>Filter by purchase</span>
+            <select id="purchaseFilter">
+              <option value="">All purchases</option>
+            </select>
+          </label>
+          <button class="btn btn--outline btn--sm" id="clearFiltersBtn" type="button">Clear</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="history" aria-label="History table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Category</th>
+                <th>Transaction</th>
+                <th>Details</th>
+                <th class="right">Amount</th>
+                <th class="right">Points</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> ILLUMINATION SERVICES</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script type="module" src="./js/history-page.js"></script>
+
+  <script type="module" src="./js/cart-modal.js"></script>
+  <script src="./session-ui.js"></script>
+
+</body>
+
+</html>

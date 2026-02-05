@@ -1,0 +1,45 @@
+<!-- Add this block inside your account.html (e.g., under user profile fields) -->
+<section class="card" style="margin-top:12px;">
+  <h2 style="margin:0 0 10px 0;font-size:18px;">Security Questions</h2>
+  <p class="muted" style="margin-top:0;">Used for password reset. Don’t use answers someone can guess from your social media.</p>
+
+  <div style="display:grid;gap:10px;max-width:620px;">
+    <label>
+      <div class="muted">Question 1</div>
+      <select id="sq1">
+        <option value="pet">What was the name of your first pet?</option>
+        <option value="street">What street did you grow up on?</option>
+        <option value="school">What was your first school?</option>
+        <option value="car">What was your first car make/model?</option>
+      </select>
+    </label>
+    <label>
+      <div class="muted">Answer 1</div>
+      <input id="sa1" type="password" placeholder="Answer" autocomplete="off"/>
+    </label>
+
+    <label>
+      <div class="muted">Question 2</div>
+      <select id="sq2">
+        <option value="pet">What was the name of your first pet?</option>
+        <option value="street">What street did you grow up on?</option>
+        <option value="school">What was your first school?</option>
+        <option value="car">What was your first car make/model?</option>
+      </select>
+    </label>
+    <label>
+      <div class="muted">Answer 2</div>
+      <input id="sa2" type="password" placeholder="Answer" autocomplete="off"/>
+    </label>
+
+    <label>
+      <div class="muted">Confirm password to save</div>
+      <input id="sqConfirmPassword" type="password" placeholder="Re-enter your password" autocomplete="current-password"/>
+    </label>
+
+    <button id="saveSQ" class="btn">Save Security Questions</button>
+    <div id="sqMsg" class="muted"></div>
+
+    <a href="../Auth/forgot-password.html" class="muted" style="text-decoration:underline;">Forgot password?</a>
+  </div>
+</section>

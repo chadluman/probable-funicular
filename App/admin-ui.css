@@ -1,0 +1,144 @@
+
+/* Admin UI uses the same tokens as style2.css (dark theme). 
+   This file only handles layout and admin-specific bits. */
+
+.admin-wrap{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.admin-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.admin-title h1{
+  margin:0;
+  font-size: 28px;
+  letter-spacing: .2px;
+}
+
+.admin-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.admin-layout{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-items:start;
+}
+
+
+.admin-sidebar{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  width: 100%;
+}
+
+.admin-card h2{
+  margin:0;
+  font-size: 18px;
+}
+
+.card__head{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom: 10px;
+}
+
+.admin-filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.admin-filters input{ flex: 1; min-width: 220px; }
+.admin-filters select{ min-width: 160px; }
+
+.table-wrap{
+  width: 100%;
+  overflow:auto;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td{
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+thead th{
+  position: sticky;
+  top: 0;
+  background: var(--color-surface);
+  z-index: 1;
+}
+
+tr:hover td{
+  background: rgba(255,255,255,0.03);
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.row--tight{ gap: 8px; }
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.admin-hint{
+  margin-top: 10px;
+}
+
+.section-title{
+  margin-top: 14px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.form__grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 520px){
+  .form__grid{ grid-template-columns: 1fr; }
+}
+
+.form__row{ display:grid; gap: 6px; }
+.form__row--full{ grid-column: 1 / -1; }
+
+.divider{
+  height: 1px;
+  background: var(--color-border);
+  margin: 14px 0;
+  border-radius: 999px;
+}

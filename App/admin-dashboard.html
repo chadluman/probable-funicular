@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="./style2.css"/>
+  <link rel="stylesheet" href="./admin-ui.css"/>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <div class="admin-title">
+        <h1>Admin Dashboard</h1>
+        <div class="muted">Users, roles, and other things humans should probably not be trusted with.</div>
+      </div>
+
+      <div class="admin-actions">
+        <span id="rolePill" class="pill">Role: ?</span>
+        <a class="pill" href="./index2.html">Home</a>
+        <a class="pill" href="./admin-sales.html">Sales</a>
+        <button id="logoutBtn" class="btn secondary">Logout</button>
+      </div>
+    </div>
+
+    <div class="admin-layout">
+      <!-- LEFT: Users table -->
+      <section class="card admin-card">
+        <div class="card__head">
+          <h2>Users</h2>
+          <div class="admin-filters">
+            <input id="searchInput" placeholder="Search by name/email..." />
+            <select id="roleFilter">
+              <option value="all">All roles</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+              <option value="disabled">Disabled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th style="width:180px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTbody"></tbody>
+          </table>
+        </div>
+
+        <div class="muted admin-hint">Tip: don’t demote yourself. That’s how you create a "call IT" day.</div>
+      </section>
+
+      <!-- RIGHT: Details + Tools -->
+      <aside class="admin-sidebar">
+        <section class="card admin-card">
+          <div class="card__head">
+            <h2>User Details</h2>
+          </div>
+
+          <div id="detailEmpty" class="muted">Select a user from the table.</div>
+
+          <div id="detailPane" hidden>
+            <div class="form__grid">
+              <div class="form__row">
+                <label class="muted" for="dFirst">First name</label>
+                <input id="dFirst" autocomplete="off" />
+              </div>
+              <div class="form__row">
+                <label class="muted" for="dLast">Last name</label>
+                <input id="dLast" autocomplete="off" />
+              </div>
+
+              <div class="form__row form__row--full">
+                <label class="muted" for="dEmailInput">Email</label>
+                <input id="dEmailInput" type="email" autocomplete="off" />
+              </div>
+
+              <div class="form__row">
+                <label class="muted" for="dAge">Age</label>
+                <input id="dAge" type="number" min="0" />
+              </div>
+              <div class="form__row">
+                <label class="muted" for="dStatus">Status</label>
+                <input id="dStatus" disabled />
+              </div>
+
+              <div class="form__row form__row--full">
+                <label class="muted" for="dAddress">Address</label>
+                <input id="dAddress" autocomplete="off" />
+              </div>
+
+              <div class="form__row form__row--full">
+                <label class="muted" for="roleSelect">Role</label>
+                <div class="row row--tight">
+                  <select id="roleSelect">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                  <button id="saveRoleBtn" class="btn">Save Role</button>
+                </div>
+              </div>
+
+              <div class="form__row form__row--full">
+                <button id="saveUserBtn" class="btn btn--primary" type="button">Save User</button>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="muted">Promo access</div>
+            <div class="muted">Grant or revoke access to restricted promo codes for this user. Codes open to everyone don’t need anything here.</div>
+            <div class="row row--tight" style="margin-top:10px; flex-wrap:wrap;">
+              <select id="detailPromoSelect" style="flex:1; min-width:220px;"></select>
+              <button id="detailGrantPromoBtn" class="btn btn--sm btn--primary" type="button" style="width:auto;">Grant</button>
+              <button id="detailRevokePromoBtn" class="btn btn--sm btn--outline" type="button" style="width:auto;">Revoke</button>
+            </div>
+            <div id="detailPromoMsg" class="muted" style="margin-top:10px;"></div>
+
+            <div class="divider"></div>
+
+            <div class="muted">Rewards points</div>
+            <div class="muted">Manually adjust points for the selected user (positive adds, negative removes).</div>
+            <div class="row row--tight" style="margin-top:10px; flex-wrap:wrap;">
+              <input id="pointsAdjustInput" type="number" step="1" placeholder="e.g., 250" style="flex:1; min-width:220px;" />
+              <button id="addPointsBtn" class="btn btn--sm btn--primary" type="button" style="width:auto;">Apply</button>
+              <button id="addPointsFilteredBtn" class="btn btn--sm btn--outline" type="button" style="width:auto;">Apply to filtered</button>
+            </div>
+            <div id="pointsAdjustMsg" class="muted" style="margin-top:10px;"></div>
+
+            <div class="divider"></div>
+
+            <div class="muted">Rewards points</div>
+            <div class="muted">Manually adjust points for the selected user (yes, this can be abused, so use it responsibly).</div>
+            <div class="row row--tight" style="margin-top:10px; flex-wrap:wrap;">
+              <input id="pointsAdjustInput" type="number" step="1" placeholder="e.g., 250" style="flex:1; min-width:220px;" />
+              <button id="pointsAdjustBtn" class="btn btn--sm btn--primary" type="button" style="width:auto;">Add Points</button>
+              <button id="pointsAdjustFilteredBtn" class="btn btn--sm btn--outline" type="button" style="width:auto;">Add to Filtered</button>
+            </div>
+            <div id="pointsAdjustMsg" class="muted" style="margin-top:10px;"></div>
+
+            <div class="divider"></div>
+
+            <div class="row" style="justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <div class="actions">
+                <button id="disableBtn" class="btn danger" type="button">Disable</button>
+                <button id="enableBtn" class="btn secondary" type="button">Enable</button>
+              </div>
+
+              <div class="actions">
+                <button id="forcePwResetBtn" class="btn secondary" type="button">Force Password Reset</button>
+              </div>
+            </div>
+
+            <div id="detailMsg" class="muted" style="margin-top:10px;"></div>
+          </div>
+        </section>
+
+        <section class="card admin-card" id="adminUserTools">
+          <div class="card__head">
+            <h2>User Management</h2>
+            <div class="muted">Create users, reset passwords, and review purchase history.</div>
+          </div>
+
+          <h3 class="section-title">Add User</h3>
+          <div class="form__grid">
+            <div class="form__row">
+              <label class="muted" for="newUserFirst">First name</label>
+              <input id="newUserFirst" placeholder="First name" />
+            </div>
+            <div class="form__row">
+              <label class="muted" for="newUserLast">Last name</label>
+              <input id="newUserLast" placeholder="Last name" />
+            </div>
+
+            <div class="form__row form__row--full">
+              <label class="muted" for="newUserEmail">Email</label>
+              <input id="newUserEmail" placeholder="Email" />
+            </div>
+
+            <div class="form__row form__row--full">
+              <label class="muted" for="newUserReferrer">Referrer email (optional)</label>
+              <input id="newUserReferrer" placeholder="Referring member's email" />
+            </div>
+
+            <div class="form__row">
+              <label class="muted" for="newUserPassword">Temp password</label>
+              <input id="newUserPassword" type="password" placeholder="Temp password" />
+            </div>
+            <div class="form__row">
+              <label class="muted" for="newUserRole">Role</label>
+              <select id="newUserRole">
+                <option value="user" selected>User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            <div class="form__row">
+              <label class="muted" for="newUserAge">Age</label>
+              <input id="newUserAge" type="number" min="0" placeholder="Age" />
+            </div>
+            <div class="form__row">
+              <label class="muted" for="newUserAddress">Address</label>
+              <input id="newUserAddress" placeholder="Address" />
+            </div>
+
+            <div class="form__row form__row--full">
+              <button id="addUserBtn" class="btn btn--primary" type="button">Add User</button>
+            </div>
+          </div>
+
+          <h3 class="section-title">Reset Selected User Password</h3>
+          <div class="muted">Select a user from the Users list, then set a new password.</div>
+          <div class="row row--tight" style="margin-top:10px; flex-wrap:wrap;">
+            <input id="resetPwInput" type="password" placeholder="New password" style="flex:1; min-width:220px;"/>
+            <button id="resetPwBtn" class="btn btn--sm btn--outline" type="button" style="width:auto;">Update Password</button>
+          </div>
+
+          <h3 class="section-title">Purchases for Selected User</h3>
+          <div class="muted">All items purchased by the selected user (from recorded transactions).</div>
+          <div class="table-wrap" style="margin-top:10px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>TX</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Scope</th>
+                  <th>Items</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="userPurchasesTbody"></tbody>
+            </table>
+          </div>
+
+          <div id="userToolsMsg" class="muted" style="margin-top:10px;"></div>
+        </section>
+
+        <section class="card admin-card" id="promoCard">
+          <div class="card__head">
+            <h2>Promo Codes</h2>
+            <div class="muted">Create, activate, and deactivate promo codes. Yes, humans will still try “FREE100”.</div>
+          </div>
+
+          <div class="row row--tight" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+            <input id="promoCodeInput" placeholder="CODE (e.g., SAVE10)" style="flex:1; min-width:160px;"/>
+            <select id="promoTypeSelect" style="flex:1; min-width:160px;">
+              <option value="percent">Percent Off</option>
+              <option value="bogo">Buy One Get One</option>
+              <option value="free_shipping">Free Shipping</option>
+            </select>
+            <select id="promoValueSelect" style="flex:1; min-width:160px;">
+              <option value="10">10% off</option><option value="20">20% off</option><option value="30">30% off</option>
+              <option value="40">40% off</option><option value="50">50% off</option><option value="60">60% off</option>
+              <option value="70">70% off</option><option value="80">80% off</option><option value="90">90% off</option>
+            </select>
+            <button id="addPromoBtn" class="btn btn--sm btn--primary" style="flex:0 0 auto; width:auto;" type="button">Add</button>
+          </div>
+
+          <div class="row row--tight" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:220px;">
+              <label class="muted xsmall" for="promoStartAt">Start (optional)</label>
+              <input id="promoStartAt" type="datetime-local" />
+            </div>
+            <div style="flex:1; min-width:220px;">
+              <label class="muted xsmall" for="promoEndAt">End (optional)</label>
+              <input id="promoEndAt" type="datetime-local" />
+            </div>
+          </div>
+
+          <div class="row row--tight" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+            <div style="flex:2; min-width:260px;">
+              <label class="muted xsmall" for="promoProductIds">Product IDs (optional)</label>
+              <input id="promoProductIds" placeholder="e.g., 1,3,6 (leave blank = all products)" />
+            </div>
+            <div style="flex:1; min-width:180px;">
+              <label class="muted xsmall" for="promoMaxTotalUses">Max total uses (optional)</label>
+              <input id="promoMaxTotalUses" type="number" min="1" step="1" placeholder="e.g., 100" />
+            </div>
+            <div style="flex:1; min-width:200px;">
+              <label class="muted xsmall" for="promoMaxUsesPerCustomer">Max uses per customer (optional)</label>
+              <input id="promoMaxUsesPerCustomer" type="number" min="1" step="1" placeholder="e.g., 1" />
+            </div>
+          </div>
+
+          <div class="muted" style="margin-top:8px;">Tip: Percent promos should be 10–90% in 10% increments (because we like rules).</div>
+
+          <div class="table-wrap" style="margin-top:10px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Type</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                  <th>Access</th>
+                  <th>Rules</th>
+                  <th style="width:220px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="promoTbody"></tbody>
+            </table>
+          </div>
+
+          <div id="promoMsg" class="muted" style="margin-top:10px;"></div>
+        </section>
+
+
+        <section class="card admin-card" id="referralCard">
+          <div class="card__head">
+            <h2>Referral Program</h2>
+            <div class="muted">Reward the referrer when a new account is created with their email.</div>
+          </div>
+
+          <div class="muted">Default reward is $10 worth of points. You can change it here.</div>
+
+          <div class="row row--tight" style="margin-top:10px; gap:10px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:220px;">
+              <label class="muted xsmall" for="referralRewardDollars">Referral reward (USD)</label>
+              <input id="referralRewardDollars" type="number" min="0" step="1" placeholder="10" />
+              <div class="muted xsmall" id="referralRewardHint" style="margin-top:6px;"></div>
+            </div>
+            <button id="saveReferralSettingsBtn" class="btn btn--sm btn--primary" style="width:auto; align-self:flex-end;" type="button">Save</button>
+          </div>
+
+          <div id="referralMsg" class="muted" style="margin-top:10px;"></div>
+        </section>
+
+      </aside>
+    </div>
+  </div>
+
+  <script src="./admin-dashboard.js"></script>
+  <script src="./session-ui.js"></script>
+</body>
+</html>
