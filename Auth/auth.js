@@ -34,7 +34,7 @@ if (registerForm) {
     window.location.href = "login.html";
   });
 }
-
+// nice push
 // --- LOGIN LOGIC ---
 const loginForm = document.querySelector('form[action="/login"]');
 if (loginForm) {
